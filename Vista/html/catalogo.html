@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda De Computadores - catálogo</title>
+    <link rel="stylesheet" href="Vista/css/master.css">
+    <script src="Vista/Script/script.js"></script>
+</head>
+
+<body>
+    <main class="catalogo">
+        <header>
+            <h1>Tienda de Tenis</h1>
+            <nav>
+                <a href="index.php?accion=inicio">Inicio</a>
+                <a href="index.php?accion=catalogo">Catálogo</a>
+                <a href="index.php?accion=login">Zona Admin</a>
+            </nav>
+        </header>
+
+        <section id="catalogo">
+            <h2>Catálogo de Productos</h2>
+            <div class="productos">
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos1.jpg" alt="Tenis Ejemplo">
+                    <h3>Zapatos de abuelito</h3>
+                    <p>Categoría: Casuales</p>
+                    <p>Talla: 38</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos2.jpg" alt="Tenis Ejemplo">
+                    <h3>tenis de KORN</h3>
+                    <p>Categoría: Exóticos</p>
+                    <p>Talla: 40</p>
+                    <p>$200.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos3.jpg" alt="Tenis Ejemplo">
+                    <h3>taconazasos</h3>
+                    <p>Categoría: Tacones</p>
+                    <p>Talla: 37</p>
+                    <p>$100.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="productos">
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos4.jpg" alt="Tenis Ejemplo">
+                    <h3>tacone</h3>
+                    <p>Categoría: Tacones</p>
+                    <p>Talla: 39</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos5.jpg" alt="Tenis Ejemplo">
+                    <h3>zapatos de pie grande</h3>
+                    <p>Categoría: Exóticos</p>
+                    <p>Talla: 45</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos7.jpg" alt="Tenis Ejemplo">
+                    <h3>Tennis con fondo amarillo</h3>
+                    <p>Categoría: Deportivos</p>
+                    <p>Talla: 40</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="productos">
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos8.jpg" alt="Tenis Ejemplo">
+                    <h3>Tennis con fondo azul</h3>
+                    <p>Categoría: Deportivos</p>
+                    <p>Talla: 40</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos9.jpg" alt="Tenis Ejemplo">
+                    <h3>Tennis con fondo negro</h3>
+                    <p>Categoría: Deportivos</p>
+                    <p>Talla: 40</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+                <div class="producto">
+                    <img src="Vista/imagenes/zapatos10.jpg" alt="Tenis Ejemplo">
+                    <h3>??????</h3>
+                    <p>Categoría: Deportivos</p>
+                    <p>Talla: 41</p>
+                    <p>$180.000</p>
+                    <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!------ Modal para registro rápido de cliente ------>
+        <div id="modalRegistro" style="display:none;" class="modal-bg">
+            <div class="modal-content">
+                <span class="close-modal" onclick="cerrarModalRegistro()">&times;</span>
+                <h3>Regístrate para comprar</h3>
+                <form id="formRegistro" action="index.php?accion=registro_cliente" method="POST">
+                    <input type="text" name="nombre" placeholder="Nombre completo" required>
+                    <input type="email" name="correo" placeholder="Correo electrónico" required>
+                    <input type="text" name="telefono" placeholder="Teléfono" required>
+                    <input type="password" name="contraseña" placeholder="Contraseña" required>
+                    <button type="submit">Registrarme</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>
