@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>Tienda de Tenis</h1>
+        <h1>Tienda de Computadores</h1>
         <nav>
             <a href="index.php?accion=inicio">Inicio</a>
             <a href="index.php?accion=catalogo">Catálogo</a>

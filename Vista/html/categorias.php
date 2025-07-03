@@ -12,11 +12,12 @@
 
 <body>
     <header>
-        <h1>Tienda de Tenis</h1>
+        <h1>Tienda de Computadores</h1>
         <nav>
             <a href="index.php?accion=inicio">Inicio</a>
             <a href="index.php?accion=catalogo">Catálogo</a>
             <a href="index.php?accion=login">Zona Admin</a>
+            <a href="index.php?accion=panel">Panel</a>
             <a href="index.php?accion=categorias">Categorias</a>
             <a href="index.php?accion=pedidos">Pedidos</a>
             <a href="index.php?accion=logout" style="color:red;">Cerrar Sesión</a>
