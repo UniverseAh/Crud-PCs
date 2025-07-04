@@ -24,7 +24,7 @@ class GestorProductos {
         if (isset($archivos['imagenes']) && count($archivos['imagenes']['tmp_name']) > 0 && $archivos['imagenes']['tmp_name'][0] != "") {
             foreach ($archivos['imagenes']['tmp_name'] as $key => $tmp_name) {
                 if ($tmp_name) {
-                    $nombre_img = basename($archivos['imagenes']['name'][$key]);
+                    $nombre_img = uniqid() . '_' . basename($archivos['imagenes']['name'][$key]);
                     $ruta_destino = "Vista/imagenes/" . $nombre_img;
                     if (move_uploaded_file($tmp_name, $ruta_destino)) {
                         $imagenesGuardadas[] = $ruta_destino;

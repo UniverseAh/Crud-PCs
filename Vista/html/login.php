@@ -20,7 +20,7 @@
     <section id="admin">
         <h2>Zona Administrador</h2>
         <p><strong>Iniciar sesión:</strong></p>
-        <form action="index.php?accion=panel" method="POST">
+        <form action="index.php?accion=login" method="POST">
             <input type="email" placeholder="correo" name="correo" required>
             <input type="password" placeholder="contraseña" name="contraseña" required>
             <button type="submit">Ingresar</button>

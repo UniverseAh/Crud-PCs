@@ -34,5 +34,5 @@ $sql = "SELECT p.id, p.nombre, p.marca, p.modelo, p.tipo, p.precio, p.especifica
     LIMIT $por_pagina OFFSET $offset";
 $result = $conexion->consulta($sql);
 
-// Consulta categorías para filtro
+// Consulta d categorías para filtro
 $categorias_result = $conexion->consulta("SELECT id, nombre FROM categorias");

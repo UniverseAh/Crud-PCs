@@ -10,7 +10,7 @@ if (isset($_GET["accion"])) {
             $controlador->verpagina('Vista/html/inicio.html');
             break;
         case "login":
-            $controlador->verpagina('Vista/html/login.php');
+            $controlador->loginVista();
             break;
         case "add":
             $controlador->agregarProducto();
@@ -50,6 +50,18 @@ if (isset($_GET["accion"])) {
             break;
         case "logout":
             $controlador->cerrarSesion();
+            break;
+        case "cambiar_estado_pedido":
+            $controlador->cambiarEstadoPedido();
+            break;
+        case "agregar_al_carrito":
+            $controlador->agregarAlCarrito();
+            break;
+        case "carrito":
+            $controlador->verpagina('Vista/html/carrito.php');
+            break;
+        case "confirmar_pedido":
+            $controlador->confirmarPedido();
             break;
         default:
             $controlador->verpagina('Vista/html/inicio.html');

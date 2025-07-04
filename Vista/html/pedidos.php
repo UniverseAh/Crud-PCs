@@ -1,3 +1,10 @@
+<?php
+if (!isset($_SESSION['admin'])) {
+    header("Location: index.php?accion=login");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +55,17 @@
                             <td><?php echo htmlspecialchars($pedido['producto']); ?></td>
                             <td><?php echo $pedido['cantidad']; ?></td>
                             <td><?php echo $pedido['fecha']; ?></td>
-                            <td><?php echo htmlspecialchars($pedido['estado']); ?></td>
+                            <td>
+                                <form method="POST" action="index.php?accion=cambiar_estado_pedido">
+                                    <input type="hidden" name="id_pedido" value="<?php echo $pedido['id']; ?>">
+                                    <select name="nuevo_estado" onchange="this.form.submit()">
+                                        <option value="pendiente"   <?php if($pedido['estado']=='pendiente') echo 'selected'; ?>>Pendiente</option>
+                                        <option value="enviado"     <?php if($pedido['estado']=='enviado') echo 'selected'; ?>>Enviado</option>
+                                        <option value="entregado"   <?php if($pedido['estado']=='entregado') echo 'selected'; ?>>Entregado</option>
+                                        <option value="cancelado"   <?php if($pedido['estado']=='cancelado') echo 'selected'; ?>>Cancelado</option>
+                                    </select>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

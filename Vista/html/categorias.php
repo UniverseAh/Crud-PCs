@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION['admin'])) {
+    header("Location: index.php?accion=login");
+    exit;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,18 +43,20 @@
             require_once "Modelo/Conexion.php";
             $conexion = new Conexion();
             $conexion->abrir();
-            $conexion->consulta("SELECT * FROM categorias");
-            $result = $conexion->obtenerResult();
+            $result = $conexion->consulta("SELECT * FROM categorias");
+            if ($result === false) {
+                die("Error en la consulta: " . $conexion->mysqli->error);
+            }
             while ($cat = $result->fetch_assoc()) {
                 $nombre = htmlspecialchars($cat['nombre']);
                 $id = $cat['id'];
                 echo "<li id='cat-$id'>$nombre
-            <form method='POST' action='index.php?accion=eliminar_categoria' style='display:inline;' onsubmit=\"return confirm('¿Eliminar esta categoría?');\">
-                <input type='hidden' name='id_categoria' value='$id'>
-                <button type='submit' class='btn-admin'>Eliminar</button>
-            </form>
-            <button type='button' class='btn-admin' style='margin-left:5px;' onclick=\"mostrarFormularioEditar($id, '$nombre')\">Editar</button>
-        </li>";
+                        <form method='POST' action='index.php?accion=eliminar_categoria' style='display:inline;' onsubmit=\"return confirm('¿Eliminar esta categoría?');\">
+                            <input type='hidden' name='id_categoria' value='$id'>
+                            <button type='submit' class='btn-admin'>Eliminar</button>
+                        </form>
+                        <button type='button' class='btn-admin' style='margin-left:5px;' onclick=\"mostrarFormularioEditar($id, '$nombre')\">Editar</button>
+                    </li>";
             }
             $conexion->cerrar();
             ?>

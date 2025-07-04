@@ -1,9 +1,9 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+if (!isset($_SESSION['admin'])) {
+    header("Location: index.php?accion=login");
+    exit;
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -108,21 +108,16 @@ error_reporting(E_ALL);
 
                 <select name="id_categoria" id="edit_categoria" required>
                     <option value="">Seleccionar categoría</option>
-
-
                     <?php
                     require_once "Modelo/Conexion.php";
                     $conexion_modal = new Conexion();
                     $conexion_modal->abrir();
-                    $conexion_modal->consulta("SELECT id, nombre FROM categorias");
-                    $categorias_modal = $conexion_modal->obtenerResult();
+                    $categorias_modal = $conexion_modal->consulta("SELECT id, nombre FROM categorias");
+                    while ($cat = $categorias_modal->fetch_assoc()):
                     ?>
-
-
-                    <?php while ($cat = $categorias_modal->fetch_assoc()): ?>
                         <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['nombre']); ?></option>
                     <?php endwhile; ?>
-
+                    <?php $conexion_modal->cerrar(); ?>
                 </select>
 
                 <input type="file" name="imagenes[]" multiple>
