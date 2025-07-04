@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-07-2025 a las 23:00:20
+-- Tiempo de generación: 04-07-2025 a las 07:48:02
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -64,7 +64,10 @@ INSERT INTO `imagenes_producto` (`id`, `id_producto`, `url_imagen`) VALUES
 (4, 22, 'Vista/imagenes/R.jfif'),
 (5, 23, 'Vista/imagenes/SinImagen.jpeg'),
 (6, 24, 'Vista/imagenes/maxresdefault.jpg'),
-(7, 25, 'Vista/imagenes/SinImagen.jpeg');
+(7, 25, 'Vista/imagenes/SinImagen.jpeg'),
+(9, 27, 'Vista/imagenes/68674e8c7d284_dog.jfif'),
+(10, 27, 'Vista/imagenes/68674e8c7d69d_gatotriste.jfif'),
+(11, 27, 'Vista/imagenes/68674e8c7da5f_perro cabezonxd.jpeg');
 
 -- --------------------------------------------------------
 
@@ -86,7 +89,7 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `id_usuario`, `id_producto`, `cantidad`, `fecha`, `estado`) VALUES
-(10, 11, 22, 2, '2025-07-02 15:55:54', 'pendiente');
+(10, 11, 22, 2, '2025-07-02 15:55:54', 'enviado');
 
 -- --------------------------------------------------------
 
@@ -117,7 +120,8 @@ INSERT INTO `productos` (`id`, `nombre`, `precio`, `imagen`, `id_categoria`, `ma
 (22, 'el pc de wendy', 66999000.00, 'Sin_Imagen.png', 2, 'pc', 'de wendy', 'Computador', 'el pc de wendy'),
 (23, 'prueba', 34000000.00, 'Sin_Imagen.png', 3, 'prueba', 'prueba', 'Repuesto', 'pruebapruebapruebapruebaprueba'),
 (24, 'exodus', 1700000.00, 'Sin_Imagen.png', 2, 'lenovo', 'AIO', 'Computador', 'es un pese todo en uno'),
-(25, 'producto no existente', 0.00, 'Sin_Imagen.png', 3, '.', '.', 'Repuesto', '.');
+(25, 'producto no existente', 0.00, 'Sin_Imagen.png', 3, '.', '.', 'Repuesto', '.'),
+(27, 'xxxxxxxxx', 0.00, 'Sin_Imagen.png', 2, 'xxxxxxxxx', 'xxxxxxxxx', 'Computador', 'xxxxxxxxx');
 
 -- --------------------------------------------------------
 
@@ -139,7 +143,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `correo`, `contraseña`, `rol`) VALUES
 (1, 'Marlon Sanchez ', 'admin@gmail.com', '123456', 'admin'),
-(11, 'Wendy 🐟', 'wendy@gmail.com', '$2y$10$CrZyOhzEx7uVUgZxzL73zOhw4EQMO4KxFpMACH3p9g/Zk/5HDVy0e', 'cliente');
+(11, 'Wendy 🐟', 'wendy@gmail.com', '$2y$10$CrZyOhzEx7uVUgZxzL73zOhw4EQMO4KxFpMACH3p9g/Zk/5HDVy0e', 'cliente'),
+(13, 'admin', 'arteaga@gmail.com', 'admin', 'admin'),
+(14, 'daniel', 'daniel@gmail.com', '$2y$10$XTuMhdYdk55FlTFkMnexD.Vg6l7wR9ZErI.uHl5A67EjZCEN2KYge', 'cliente');
 
 --
 -- Índices para tablas volcadas
@@ -188,13 +194,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenes_producto`
 --
 ALTER TABLE `imagenes_producto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
@@ -206,13 +212,13 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restricciones para tablas volcadas
