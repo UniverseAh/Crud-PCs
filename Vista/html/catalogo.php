@@ -139,6 +139,10 @@ $cliente_logueado = isset($_SESSION['cliente']);
             </div>
         </div>
     </main>
+    <footer>
+        <p>&copy; 2025 Tienda de Computadores. Todos los derechos reservados.</p>
+    </footer>
+    
 </body>
 
 </html>

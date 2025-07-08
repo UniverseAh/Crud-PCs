@@ -76,7 +76,7 @@ if (!isset($_SESSION['admin'])) {
         </div>
 
         <footer>
-            <p>&copy; 2025 Tienda de Tenis. Todos los derechos reservados.</p>
+            <p>&copy; 2025 Tienda de Computadores. Todos los derechos reservados.</p>
         </footer>
 </body>
 
