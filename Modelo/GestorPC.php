@@ -1,6 +1,6 @@
 <?php 
 
-    class GestorShoes{
+    class GestorPC{
         public function login($correo, $contraseña){
             $conexion = new Conexion();
             $conexion->abrir();

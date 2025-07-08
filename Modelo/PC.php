@@ -1,6 +1,6 @@
 <?php
 
-class Shoes {
+class PC {
     private $nombre;
     private $descripcion;
     private $precio;

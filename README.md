@@ -1,5 +1,5 @@
 # -----------CRUD VENTA DE PCS------------
-Aplicación web en PHP para la administración de productos (computadores) y un catálogo público
+Aplicación web en PHP para la administración de productos (computadores y repuestos) y un catálogo público
 ---
 
 ## Características
@@ -12,6 +12,9 @@ Aplicación web en PHP para la administración de productos (computadores) y un 
 
 - **Cliente**
   - Catálogo público con búsqueda y filtros por categoría
+  - Capacidad para crear una Cuenta
+  - Opción de agregar productos al carrito una vez iniciada sesión
+  - Poder pedir todos los productos del carrito en un mismo pedido
 
 ---
 
@@ -26,7 +29,7 @@ Aplicación web en PHP para la administración de productos (computadores) y un 
 
 4. **Configura la conexión a la base de datos**
 
-   - Edita `Modelo/Conexion.php` si el usuario o contraseña de MySQL es diferente.
+   - Editar en `Modelo/Conexion.php` si el usuario o contraseña de MySQL es diferente.
 
 ---
 
@@ -51,6 +54,9 @@ Modelo/
     GestorUsuarios.php
     GestorPedidos.php
     GestorCatalogo.php
+    GestorPC.php
+    GestorUsuarios.php
+    PC.php
 Controlador/
     Controlador.php
 Vista/
@@ -61,8 +67,11 @@ Vista/
         panel.php
         categorias.php
         login.php
-        ...
+        inicio.php
+        loginCliente.php
+        tabla.php
     css/
+      master.css
     imagenes/
     Script/
 index.php
@@ -75,6 +84,7 @@ index.php
 - **CRUD de productos y categorías** desde el panel de administración.
 - **Cambio de estado de pedidos** por el administrador.
 - **Control de acceso**: solo el admin puede acceder al panel y gestionar productos/categorías/pedidos.
+-**Capacidad de hacer pedidos**: una vez el Cliente cree una cuenta e inicie sesión podrá agregar cosas al carrito y hacer el pedido
 
 ---
 
