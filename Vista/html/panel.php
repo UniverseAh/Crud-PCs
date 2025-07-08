@@ -25,6 +25,7 @@ if (!isset($_SESSION['admin'])) {
             <a href="index.php?accion=panel">Panel</a>
             <a href="index.php?accion=categorias">Categorias</a>
             <a href="index.php?accion=pedidos">Pedidos</a>
+            <a href="index.php?accion=dashboard">Dashboard</a>
             <a href="index.php?accion=logout" style="color:red;">Cerrar Sesión</a>
         </nav>
     </header>

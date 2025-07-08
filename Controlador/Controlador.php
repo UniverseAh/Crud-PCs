@@ -265,6 +265,11 @@ class Controlador {
     header("Location: index.php?accion=catalogo");
     exit;
 }
-
+public function dashboard() {
+    // Aquí va la lógica para mostrar el dashboard
+    // Por ejemplo:
+    $estadisticas = GestorProductos::estadisticasMes();
+    require "Vista/html/dashboard.php";
+}
 }
 ?>

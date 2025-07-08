@@ -9,6 +9,7 @@ Aplicación web en PHP para la administración de productos (computadores y repu
   - CRUD de productos (computadores o repuestos)
   - Gestión de categorías
   - Gestión de pedidos y cambio de estado (Pendiente, Enviado, Entregado, Cancelado)
+  - Apartado Dashboard para ver estadísticas de ventas 
 
 - **Cliente**
   - Catálogo público con búsqueda y filtros por categoría

@@ -80,5 +80,59 @@ class GestorProductos {
 
         echo "<script>alert('Producto actualizado con éxito');window.location='index.php?accion=panel';</script>";
     }
+    public static function estadisticasMes() {
+        $conexion = new Conexion();
+        $conexion->abrir();
+
+/////// Total productos vendidos este mes
+        $sql_total = "SELECT SUM(cantidad) as total_vendidos
+                        FROM pedidos
+                        WHERE MONTH(fecha) = MONTH(CURRENT_DATE()) AND YEAR(fecha) = YEAR(CURRENT_DATE()) AND estado != 'cancelado'";
+        $res_total = $conexion->consulta($sql_total);
+        $total_vendidos = 0;
+        if ($res_total && $row = $res_total->fetch_assoc()) {
+            $total_vendidos = $row['total_vendidos'] ?: 0;
+        }
+
+/////// Producto más vendido este mes
+        $sql_mas_vendido = "SELECT productos.nombre, SUM(pedidos.cantidad) as vendidos
+                            FROM pedidos
+                            JOIN productos ON pedidos.id_producto = productos.id
+                            WHERE MONTH(pedidos.fecha) = MONTH(CURRENT_DATE()) AND YEAR(pedidos.fecha) = YEAR(CURRENT_DATE()) AND pedidos.estado != 'cancelado'
+                            GROUP BY productos.id
+                            ORDER BY vendidos DESC
+                            LIMIT 1";
+        $res_mas_vendido = $conexion->consulta($sql_mas_vendido);
+        $mas_vendido = null;
+        if ($res_mas_vendido && $row = $res_mas_vendido->fetch_assoc()) {
+            $mas_vendido = [
+                'nombre' => $row['nombre'],
+                'vendidos' => $row['vendidos']
+            ];
+        }
+
+///// Ventas por producto del mes actual para la gráfica
+        $sql_productos = "SELECT productos.nombre, SUM(pedidos.cantidad) as vendidos
+                            FROM pedidos
+                            JOIN productos ON pedidos.id_producto = productos.id
+                            WHERE MONTH(pedidos.fecha) = MONTH(CURRENT_DATE()) AND YEAR(pedidos.fecha) = YEAR(CURRENT_DATE()) AND pedidos.estado != 'cancelado'
+                            GROUP BY productos.id
+                            ORDER BY vendidos DESC";
+        $res_productos = $conexion->consulta($sql_productos);
+        $productos_nombres = [];
+        $productos_vendidos = [];
+        while ($row = $res_productos->fetch_assoc()) {
+            $productos_nombres[] = $row['nombre'];
+            $productos_vendidos[] = $row['vendidos'];
+        }
+
+        $conexion->cerrar();
+        return [
+            'total_vendidos' => $total_vendidos,
+            'mas_vendido' => $mas_vendido,
+            'productos_nombres' => $productos_nombres,
+            'productos_vendidos' => $productos_vendidos
+        ];
+    }
 }
 ?>

@@ -48,6 +48,9 @@ if (isset($_GET["accion"])) {
         case "pedidos":
             $controlador->mostrarPedidos();
             break;
+        case "dashboard":
+            $controlador->dashboard();
+            break;
         case "actualizar_categoria":
             $controlador->actualizarCategoria();
             break;
