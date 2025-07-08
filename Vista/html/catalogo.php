@@ -22,11 +22,20 @@ $cliente_logueado = isset($_SESSION['cliente']);
             <h1>Tienda de Computadores</h1>
             <nav>
                 <a href="index.php?accion=inicio">Inicio</a>
-                <a href="index.php?accion=catalogo">Catálogo</a>
-                <a href="index.php?accion=login">Zona Admin</a>
-                <?php if ($cliente_logueado): ?>
-                    <a href="index.php?accion=cerrar_sesion" style="color:red;">Cerrar Sesión</a>
-                <?php endif; ?>
+                <a href="index.php?accion=catalogo">Catálogo</a>                    
+                <?php 
+                // CONDICIONAL PARA QUE CUANDO UN CLIENTE ESTGE LOGUEADO LA OPC DE ZONA ADMIN NO LE SALGA PERO SI AGREGRE EL CARRITO Y EL CERRAR SESION
+                    if ($cliente_logueado) {
+                        // ESTO LO MUESTRA SOLO SI EL USER TIPO CLIENTE ESTA LOGUEADO
+                        echo "<a href='index.php?accion=carrito'>Carrito</a>";
+                        echo "<a href='index.php?accion=cerrar_sesion' style='color:red;'>Cerrar Sesión</a>";
+                    } else {
+                        // ESTO LO MUESTRA SI NO AHI NINGUN USUARIO LOGUEADO
+                        echo "<a href='index.php?accion=loginCliente'>Login Cliente</a>";
+                        echo "<a href='index.php?accion=login'>Zona Admin</a>";
+                        
+                    } 
+                ?>
             </nav>
         </header>
         <section id="catalogo">
@@ -84,9 +93,11 @@ $cliente_logueado = isset($_SESSION['cliente']);
                             <?php if ($cliente_logueado): ?>
                                 <form method="POST" action="index.php?accion=agregar_al_carrito" style="display:inline;">
                                     <input type="hidden" name="id_producto" value="<?php echo $row['id']; ?>">
+                                    <input type="hidden" name="nombre" value="<?php echo $row['nombre']; ?>">
                                     <input type="number" name="cantidad" value="1" min="1" style="width:50px;">
                                     <button type="submit">Solicitar Compra</button>
                                 </form>
+                                
                             <?php else: ?>
                                 <button type="button" onclick="abrirModalRegistro()">Solicitar Compra</button>
                             <?php endif; ?>

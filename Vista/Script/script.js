@@ -10,6 +10,7 @@ function abrirModalEditar(producto) {
     document.getElementById('modalEditar').style.display = 'flex';
 }
 
+
 function cerrarModal() {
     document.getElementById('modalEditar').style.display = 'none';
 }

@@ -48,6 +48,47 @@ class Controlador {
         }
     }
 
+    public function loginClienteVista() {
+        if (isset($_POST["correo"]) && isset($_POST["contraseña"])) {
+            $correo = $_POST["correo"];
+            $contraseña = $_POST["contraseña"];
+
+            $conexion = new Conexion();
+            $conexion->abrir();
+
+            $sql = "SELECT * FROM usuarios WHERE correo = '$correo' AND rol = 'cliente'";
+            $result = $conexion->consulta($sql);
+
+            if ($result && $result->num_rows > 0) {
+                $usuario = $result->fetch_assoc();
+                if ($usuario['contraseña'] == $contraseña) {
+                    session_start();
+                    $_SESSION['cliente'] = $correo;
+                    $_SESSION['user'] = [
+                        "id" => $usuario['id'],
+                        "correo" => $usuario['nombre'],
+                        "nombre" => $usuario['correo']
+                    ];
+                    $conexion->cerrar();
+                    header("Location: index.php?accion=catalogo");
+                    exit;
+                }
+                    if (password_verify($contraseña, $usuario['contraseña'])) {
+                        session_start();
+                        $_SESSION['cliente'] = $correo;
+                        $conexion->cerrar();
+                        header("Location: index.php?accion=catalogo");
+                        exit;
+                    }
+            }
+            $conexion->cerrar();
+            echo "<script>alert('Usuario o contraseña incorrectos');window.location='index.php?accion=loginCliente';</script>";
+            exit;
+        } else {
+            $this->verpagina('Vista/html/loginCliente.php');
+        }
+    }
+
     
 /////////productos
     public function agregarProducto() {
@@ -127,54 +168,103 @@ class Controlador {
         exit;
     }
     public function agregarAlCarrito() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $id_producto = intval($_POST['id_producto']);
+        $nombre = trim($_POST['nombre']);
         $cantidad = intval($_POST['cantidad']);
+
+        if ($cantidad < 1) {
+            $cantidad = 1;
+        }
+        if (empty($nombre) || $id_producto <= 0) {
+            header("Location: index.php?accion=catalogo&error=invalid_product");
+            exit;
+        }
 
         if (!isset($_SESSION['carrito'])) {
             $_SESSION['carrito'] = [];
         }
 
-////// Si ya existe el producto en el carrito se suma la cantidad (NO SIRVE)
         if (isset($_SESSION['carrito'][$id_producto])) {
-            $_SESSION['carrito'][$id_producto] += $cantidad;
+            $_SESSION['carrito'][$id_producto]['cantidad'] += $cantidad;
         } else {
-            $_SESSION['carrito'][$id_producto] = $cantidad;
+            $_SESSION['carrito'][$id_producto] = [
+                'nombre' => $nombre,
+                'cantidad' => $cantidad
+            ];
         }
 
         header("Location: index.php?accion=catalogo");
         exit;
     }
-    public function confirmarPedido() {
+
+    public function remoCard($id) {
         session_start();
-        if (!isset($_SESSION['cliente']) || empty($_SESSION['carrito'])) {
+
+        if ($id !== null && isset($_SESSION['carrito'][$id])) {
+            if ($_SESSION['carrito'][$id]['cantidad'] > 1) {
+                $_SESSION['carrito'][$id]['cantidad'] -= 1;
+            } else {
+                unset($_SESSION['carrito'][$id]); // Elimina solo si es 1
+            }
             header("Location: index.php?accion=carrito");
-            exit;
+        } else {
+            header("Location: index.php?accion=carrito");
         }
-        $correo = $_SESSION['cliente'];
-        $carrito = $_SESSION['carrito'];
+    }
+    public function confirmarPedido() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-        $conexion = new Conexion();
-        $conexion->abrir();
-
-        //////// Busca el id del usuario por el correo
-        $res = $conexion->consulta("SELECT id FROM usuarios WHERE correo='$correo'");
-        $usuario = $res->fetch_assoc();
-        $id_usuario = $usuario['id'];
-
-    
-        if (empty($carrito)) { die('Carrito vacío'); }
-        if (!$id_usuario) { die('Usuario no encontrado'); }
-
-        foreach ($carrito as $id_producto => $cantidad) {
-            $sql = "INSERT INTO pedidos (id_usuario, id_producto, cantidad, estado) VALUES ($id_usuario, $id_producto, $cantidad, 'pendiente')";
-            $conexion->consulta($sql);
-        }
-
-        $conexion->cerrar();
-        unset($_SESSION['carrito']);
-        header("Location: index.php?accion=pedidos");
+    if (!isset($_SESSION['cliente']) || empty($_SESSION['carrito'])) {
+        header("Location: index.php?accion=carrito");
         exit;
     }
+
+    $correo = $_SESSION['cliente'];
+    $carrito = $_SESSION['carrito'];
+
+    $conexion = new Conexion();
+    $conexion->abrir();
+
+    // Obtener el ID del usuario mediante su correo
+    $conexion->consulta("SELECT id FROM usuarios WHERE correo = '$correo'");
+    $res = $conexion->obtenerResultados();
+    
+    if (!$res) {
+        $conexion->cerrar();
+        die("Error al buscar el usuario.".$correo);
+    }
+
+    $usuario = $res->fetch_assoc();
+    if (!$usuario || !isset($usuario['id'])) {
+        $conexion->cerrar();
+        die("Usuario no encontrado.");
+    }
+
+    $id_usuario = intval($usuario['id']);
+
+    // Insertar cada producto del carrito como pedido
+    foreach ($carrito as $id_producto => $item) {
+        $id_producto = intval($id_producto);
+        $cantidad = intval($item['cantidad']);
+
+        $sql = "INSERT INTO pedidos (id_usuario, id_producto, cantidad, estado) 
+                VALUES ($id_usuario, $id_producto, $cantidad, 'pendiente')";
+
+        $conexion->consulta($sql);
+    }
+
+    $conexion->cerrar();
+    unset($_SESSION['carrito']);
+
+    header("Location: index.php?accion=catalogo");
+    exit;
+}
+
 }
 ?>

@@ -7,10 +7,13 @@ $controlador = new Controlador();
 if (isset($_GET["accion"])) {
     switch ($_GET["accion"]) {
         case "vista":
-            $controlador->verpagina('Vista/html/inicio.html');
+            $controlador->verpagina('Vista/html/inicio.php');
             break;
         case "login":
             $controlador->loginVista();
+            break;
+        case "loginCliente":
+            $controlador->loginClienteVista();
             break;
         case "add":
             $controlador->agregarProducto();
@@ -31,7 +34,7 @@ if (isset($_GET["accion"])) {
             $controlador->registrarCliente();
             break;
         case "inicio":
-            $controlador->verpagina('Vista/html/inicio.html');
+            $controlador->verpagina('Vista/html/inicio.php');
             break;
         case "catalogo":
             $controlador->verpagina('Vista/html/catalogo.php');
@@ -48,7 +51,7 @@ if (isset($_GET["accion"])) {
         case "actualizar_categoria":
             $controlador->actualizarCategoria();
             break;
-        case "logout":
+        case "cerrar_sesion":
             $controlador->cerrarSesion();
             break;
         case "cambiar_estado_pedido":
@@ -60,12 +63,16 @@ if (isset($_GET["accion"])) {
         case "carrito":
             $controlador->verpagina('Vista/html/carrito.php');
             break;
-        case "confirmar_pedido":
+        case 'eliminarItem':
+            $id = $_GET['id'] ?? null;
+            $controlador->remoCard($id);
+            break;
+        case "confirmarPedido":
             $controlador->confirmarPedido();
             break;
         default:
-            $controlador->verpagina('Vista/html/inicio.html');
+            $controlador->verpagina('Vista/html/inicio.php');
     }
 } else {
-    $controlador->verpagina('Vista/html/inicio.html');
+    $controlador->verpagina('Vista/html/inicio.php');
 }
